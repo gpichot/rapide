@@ -20,7 +20,7 @@ jobs:
               - 'scripts/**'
       - name: Build template
         if: steps.filter.outputs.scripts == 'true'
-        run: yarn && yarn build:template
+        run: yarn && yarn build:templates
       - name: Create Pull Request
         if: steps.filter.outputs.scripts == 'true'
         uses: peter-evans/create-pull-request@v4
