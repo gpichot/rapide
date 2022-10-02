@@ -1,6 +1,7 @@
 // Create Base React Template
 
 import path from "path";
+import { TemplateBuilderFnOptions } from "./types";
 import { runCommand, TemplateBuilder } from "./utils";
 
 async function buildTemplateReact({
@@ -8,12 +9,7 @@ async function buildTemplateReact({
   cwd,
   buildDir,
   resourceDir,
-}: {
-  name: string;
-  buildDir: string;
-  cwd: string;
-  resourceDir: string;
-}) {
+}: TemplateBuilderFnOptions) {
   console.log("Build React Template");
   const commandOptions = { cwd };
   const templateBuilder = new TemplateBuilder();

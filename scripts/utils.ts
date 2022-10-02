@@ -155,13 +155,17 @@ export class TemplateBuilder {
     // Install dev packages
     const devDependencies = this.packageJSON.getDependencies({ dev: true });
     if (devDependencies.length) {
-      await runCommand("yarn", ["add", "--dev", ...devDependencies], { cwd });
+      await runCommand(
+        "yarn",
+        ["add", "--ignore-scripts", "--dev", ...devDependencies],
+        { cwd }
+      );
     }
 
     // Install packages
     const dependencies = this.packageJSON.getDependencies();
     if (dependencies.length) {
-      await runCommand("yarn", ["add", ...dependencies], {
+      await runCommand("yarn", ["add", "--ignore-scripts", ...dependencies], {
         cwd,
       });
     }

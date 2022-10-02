@@ -2,7 +2,9 @@
 
 import { runCommand } from "./utils";
 import path from "path";
+import { TemplateBuilderFnOptions } from "./types";
 import buildTemplateReact from "./build-template-react";
+import buildTemplateReactWorkshop from "./build-template-react-workshop";
 
 async function buildTemplate(
   name: string,
@@ -11,12 +13,7 @@ async function buildTemplate(
     cwd,
     buildDir,
     resourceDir,
-  }: {
-    name: string;
-    cwd: string;
-    buildDir: string;
-    resourceDir: string;
-  }) => Promise<void>
+  }: TemplateBuilderFnOptions) => Promise<void>
 ) {
   const options = {
     buildDir: path.join(process.cwd(), "templates", name),
@@ -26,7 +23,7 @@ async function buildTemplate(
   await runCommand("rm", ["-rf", options.buildDir]);
 
   await builder({
-    name
+    name,
     cwd: options.buildDir,
     buildDir: options.buildDir,
     resourceDir: path.join(__dirname, "..", "files", name),
@@ -34,7 +31,8 @@ async function buildTemplate(
 }
 
 async function main() {
-  await buildTemplate("react", buildTemplateReact);
+  // await buildTemplate("react", buildTemplateReact);
+  await buildTemplate("react-workshop", buildTemplateReactWorkshop);
 }
 
 main().catch((error) => {
