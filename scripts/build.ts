@@ -10,6 +10,7 @@ const options = {
 const templateBuilder = new TemplateBuilder();
 
 async function main() {
+  //G
   // Clear the build directory
   console.log(`Clearing the build directory [${options.buildDir}]...`);
   await runCommand("rm", ["-rf", options.buildDir]);
@@ -123,6 +124,7 @@ async function main() {
 
   // Auto Formatting & Fix
   templateBuilder.addDevDependencies(["husky", "lint-staged"]);
+  templateBuilder.packageJSON.addScript("prepare", "husky install");
   templateBuilder.packageJSON.addScript("format", "prettier --write src");
   templateBuilder.packageJSON.addScript(
     "lint",
@@ -141,13 +143,36 @@ async function main() {
   });
 
   // Auto Committing
-  // runCommand("yarn", ["add", "--dev", "commitizen", "@commitlint/cs"]);
+  templateBuilder.addDevDependencies([
+    "@commitlint/config-conventional",
+    "@commitlint/cli",
+  ]);
+  templateBuilder.addFile("commitlint.config.js", {
+    content: "module.exports = {extends: ['@commitlint/config-conventional']};",
+  });
 
   // Print dependencies
   templateBuilder.printDependencies();
 
   // Build
   await templateBuilder.build(commandOptions);
+  await runCommand("mkdir", [".husky"], commandOptions);
+  await runCommand(
+    "npx",
+    ["husky", "add", ".husky/pre-commit", '"npx lint-staged"'],
+    commandOptions
+  );
+  // npx husky add .husky/commit-msg  "npx --no -- commitlint --edit ${1}"
+  await runCommand(
+    "npx",
+    [
+      "husky",
+      "add",
+      ".husky/commit-msg",
+      '"npx --no -- commitlint --edit ${1}"',
+    ],
+    commandOptions
+  );
 
   await runCommand("yarn", ["sort-package-json"], commandOptions);
   await runCommand("yarn", ["format"], commandOptions);
