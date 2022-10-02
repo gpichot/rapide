@@ -12,9 +12,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            scripts:
+              - 'scripts/**'
       - name: Build template
+        if: steps.filter.outputs.scripts == 'true'
         run: yarn && yarn build:template
       - name: Create Pull Request
+        if: steps.filter.outputs.scripts == 'true'
         uses: peter-evans/create-pull-request@v4
         with:
           title: Updated templates
