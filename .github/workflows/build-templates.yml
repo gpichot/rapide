@@ -18,6 +18,7 @@ jobs:
           filters: |
             scripts:
               - 'scripts/**'
+              - 'files/**'
       - name: Build template
         if: steps.filter.outputs.scripts == 'true'
         run: yarn && yarn build:templates
