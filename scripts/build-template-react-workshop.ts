@@ -1,4 +1,5 @@
 import path from "path";
+import fs from "fs/promises";
 
 import { TemplateBuilderFnOptions } from "./types";
 import { runCommand, TemplateBuilder } from "./utils";
@@ -15,7 +16,17 @@ async function buildTemplateReactWorkshop({
 
   // Copy React Project from build-template-react
   await runCommand("mkdir", ["-p", buildDir]);
-  await runCommand("cp", ["-R", "../react/", "."], commandOptions);
+  await fs.cp(path.join(cwd, "..", "react"), buildDir, {
+    recursive: true,
+    filter: (src, dest) => {
+      // Filter out node_modules, dist, storybook-static
+      return (
+        !src.includes("node_modules") &&
+        !src.includes("dist") &&
+        !src.includes("storybook-static")
+      );
+    },
+  });
   templateBuilder.changeFile("package.json", (content) => {
     const packageJSON = JSON.parse(content);
     packageJSON.name = `rapide-vite-template-${name}`;
