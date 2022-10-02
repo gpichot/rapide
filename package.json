@@ -5,7 +5,7 @@
   "author": "Gabriel Pichot <gabriel.pichot@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build:template": "ts-node scripts/build.ts"
+    "build:templates": "ts-node scripts/build.ts"
   },
   "dependencies": {
     "@types/node": "^18.7.23",

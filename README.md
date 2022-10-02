@@ -22,5 +22,11 @@ TODO:
 ## Usage
 
 ```bash
-degit gpichot/rapide/template
+degit gpichot/rapide/templates/react
 ```
+
+## Templates
+
+| Template | Description | Usage                                  |
+| -------- | ----------- | -------------------------------------- |
+| `react`  | Basic React | `degit gpichot/rapide/templates/react` |
