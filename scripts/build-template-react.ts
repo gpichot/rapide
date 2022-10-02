@@ -22,7 +22,11 @@ async function buildTemplateReact({
   );
   await runCommand("yarn", ["install"], commandOptions);
 
-  templateBuilder.packageJSON.addConfig("name", `rapide-vite-template-${name}`);
+  templateBuilder.changeFile("package.json", (content) => {
+    const packageJSON = JSON.parse(content);
+    packageJSON.name = `rapide-vite-template-${name}`;
+    return JSON.stringify(packageJSON, null, 2);
+  });
   templateBuilder.addFile(".gitignore", {
     fromFile: path.join(resourceDir, "gitignore"),
   });

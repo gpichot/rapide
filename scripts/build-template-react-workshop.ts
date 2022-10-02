@@ -15,8 +15,12 @@ async function buildTemplateReactWorkshop({
 
   // Copy React Project from build-template-react
   await runCommand("mkdir", ["-p", buildDir]);
-  await runCommand("cp", ["-r", "../react/", "."], commandOptions);
-  templateBuilder.packageJSON.addConfig("name", `rapide-vite-template-${name}`);
+  await runCommand("cp", ["-R", "../react/", "."], commandOptions);
+  templateBuilder.changeFile("package.json", (content) => {
+    const packageJSON = JSON.parse(content);
+    packageJSON.name = `rapide-vite-template-${name}`;
+    return JSON.stringify(packageJSON, null, 2);
+  });
 
   // Add Material UI
   templateBuilder.addDependencies([
