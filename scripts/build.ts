@@ -31,7 +31,7 @@ async function buildTemplate(
 }
 
 async function main() {
-  // await buildTemplate("react", buildTemplateReact);
+  await buildTemplate("react", buildTemplateReact);
   await buildTemplate("react-workshop", buildTemplateReactWorkshop);
 }
 
