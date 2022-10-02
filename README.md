@@ -27,6 +27,7 @@ degit gpichot/rapide/templates/react
 
 ## Templates
 
-| Template | Description | Usage                                  |
-| -------- | ----------- | -------------------------------------- |
-| `react`  | Basic React | `degit gpichot/rapide/templates/react` |
+| Template | Description                                | Usage                                           |
+| -------- | ------------------------------------------ | ----------------------------------------------- |
+| `react`  | Basic React                                | `degit gpichot/rapide/templates/react`          |
+| `react`  | React Workshops (React Query, Material UI) | `degit gpichot/rapide/templates/react-workshop` |
