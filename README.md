@@ -12,12 +12,12 @@ Template designed for [Vite + React]:
 - 🧰 TypeScript (+ typed-scss-modules)
 - 🎨 Sass, CSS Modules (typed)
 - 🥷 Storybook + Testing React
+- 🖋️ Commitlint
+- 🐾 Husky
 
 TODO:
 
-- Commitizen
 - Cypress
-- Husky
 
 ## Usage
 
