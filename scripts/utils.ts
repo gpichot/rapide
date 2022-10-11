@@ -57,17 +57,17 @@ class PackageJSONManager {
   }
 
   applyToPackageJSON(packageJSON: Record<string, unknown>) {
+    const { scripts, ...rest } = packageJSON;
     return {
       // Add scripts
-      ...packageJSON,
       scripts: {
-        ...((packageJSON.scripts as Record<string, unknown>) || {}),
+        ...((scripts as Record<string, unknown>) || {}),
         ...this.scripts,
       },
 
       // Add config
-      config: {
-        ...((packageJSON.config as Record<string, unknown>) || {}),
+      ...{
+        ...rest,
         ...this.config,
       },
     };
@@ -148,6 +148,9 @@ export class TemplateBuilder {
   }
 
   changeFile(filepath: string, mutator: (content: string) => string) {
+    if (this.filesMutators.has(filepath)) {
+      console.warn(`🚨 Overriding mutator for ${filepath}`);
+    }
     this.filesMutators.set(filepath, mutator);
   }
 
@@ -191,12 +194,12 @@ export class TemplateBuilder {
       )
     );
 
+    console.log("Mutating files");
     // Mutate files
-    await Promise.all(
-      [...this.filesMutators.entries()].map(async ([filepath, mutator]) => {
-        const content = await fs.readFile(`${cwd}/${filepath}`, "utf-8");
-        await fs.writeFile(`${cwd}/${filepath}`, mutator(content));
-      })
-    );
+    for (const [filepath, mutator] of this.filesMutators.entries()) {
+      console.log(`Mutating ${filepath}`);
+      const content = await fs.readFile(`${cwd}/${filepath}`, "utf8");
+      await fs.writeFile(`${cwd}/${filepath}`, mutator(content));
+    }
   }
 }

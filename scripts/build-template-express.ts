@@ -34,6 +34,7 @@ async function buildTemplateExpress({
   templateBuilder.packageJSON.addDependencies([
     "express",
     "prisma",
+    "@prisma/client",
     "dotenv",
     "cors",
     "morgan",
@@ -57,6 +58,9 @@ async function buildTemplateExpress({
   templateBuilder.packageJSON.addScript("build", "tsc");
   templateBuilder.packageJSON.addScript("test", "jest");
 
+  // Sort package json
+  templateBuilder.addDevDependencies(["sort-package-json"]);
+
   // Add prettier
   templateBuilder.packageJSON.addDevDependencies(["prettier"]);
   templateBuilder.packageJSON.addScript(
@@ -69,6 +73,7 @@ async function buildTemplateExpress({
     "eslint",
     "@typescript-eslint/parser",
     "@typescript-eslint/eslint-plugin",
+    "eslint-import-resolver-typescript",
     "eslint-config-prettier",
     "eslint-plugin-import",
     "eslint-plugin-jest",
@@ -81,9 +86,13 @@ async function buildTemplateExpress({
 
   await templateBuilder.build(commandOptions);
 
+  // Prisma
+  await runCommand("npx", ["prisma", "init"], commandOptions);
+
   // Tests
-  // await runCommand("yarn", ["lint", "--", "--fix"], commandOptions);
+  await runCommand("yarn", ["sort-package-json"], commandOptions);
   await runCommand("yarn", ["format"], commandOptions);
+  await runCommand("yarn", ["eslint", "--fix", "src"], commandOptions);
 }
 
 export default buildTemplateExpress;

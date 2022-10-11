@@ -137,6 +137,13 @@ async function buildTemplateReact({
     const tsConfig = JSON.parse(content);
     tsConfig.compilerOptions.esModuleInterop = true;
     tsConfig.compilerOptions.allowJs = true;
+    tsConfig.include = [
+      ...tsConfig.include,
+      "__mocks__",
+      "./*.js",
+      "./*.cjs",
+      "./*.ts",
+    ];
     return JSON.stringify(tsConfig, null, 2);
   });
 
@@ -145,7 +152,7 @@ async function buildTemplateReact({
     "@commitlint/config-conventional",
     "@commitlint/cli",
   ]);
-  templateBuilder.addFile("commitlint.config.js", {
+  templateBuilder.addFile("commitlint.config.cjs", {
     content: "module.exports = {extends: ['@commitlint/config-conventional']};",
   });
 
@@ -154,18 +161,12 @@ async function buildTemplateReact({
   await runCommand("mkdir", [".husky"], commandOptions);
   await runCommand(
     "npx",
-    ["husky", "add", ".husky/pre-commit", '"npx lint-staged"'],
+    ["husky", "add", ".husky/pre-commit", "npx lint-staged"],
     commandOptions
   );
-  // npx husky add .husky/commit-msg  "npx --no -- commitlint --edit ${1}"
   await runCommand(
     "npx",
-    [
-      "husky",
-      "add",
-      ".husky/commit-msg",
-      '"npx --no -- commitlint --edit ${1}"',
-    ],
+    ["husky", "add", ".husky/commit-msg", "npx --no -- commitlint --edit ${1}"],
     commandOptions
   );
 

@@ -1,4 +1,6 @@
 import express from "express";
+// REMOVE following line once migrations is generated
+// eslint-disable-next-line import/named
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();

@@ -21,7 +21,11 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "src",
+    "__mocks__",
+    "./*.js",
+    "./*.cjs",
+    "./*.ts"
   ],
   "references": [
     {
