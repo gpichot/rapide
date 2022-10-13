@@ -63,6 +63,19 @@ async function buildTemplateTsoa({
     ),
   });
 
+  // Add nodemon config
+  templateBuilder.addFile("nodemon.json", {
+    content: JSON.stringify(
+      {
+        exec: "ts-node src/server.ts",
+        watch: ["src"],
+        ext: "ts",
+      },
+      null,
+      2
+    ),
+  });
+
   // Add server.ts and app.ts
   templateBuilder.addFile("src/server.ts", {
     fromFile: path.join(resourceDir, "server.ts"),
