@@ -40,7 +40,7 @@ async function buildTemplateTsoa({
   templateBuilder.packageJSON.addScript("start", "node build/src/server.js");
   templateBuilder.packageJSON.addScript(
     "dev",
-    'concurrently \\"nodemon\\" \\"nodemon -x tsoa spec-and-routes\\"'
+    'concurrently "nodemon" "nodemon -x tsoa spec-and-routes"'
   );
 
   // Add tsoa config
