@@ -6,6 +6,7 @@ import { TemplateBuilderFnOptions } from "./types";
 import buildTemplateReact from "./build-template-react";
 import buildTemplateReactWorkshop from "./build-template-react-workshop";
 import buildTemplateExpressPrisma from "./build-template-express";
+import buildTsoa from "./build-tsoa";
 
 async function buildTemplate(
   name: string,
@@ -35,6 +36,7 @@ async function main() {
   await buildTemplate("react", buildTemplateReact);
   await buildTemplate("react-workshop", buildTemplateReactWorkshop);
   await buildTemplate("express-prisma", buildTemplateExpressPrisma);
+  await buildTemplate("tsoa", buildTsoa);
 }
 
 main().catch((error) => {
