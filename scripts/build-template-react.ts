@@ -27,6 +27,9 @@ async function buildTemplateReact({
     packageJSON.name = `rapide-vite-template-${name}`;
     return JSON.stringify(packageJSON, null, 2);
   });
+  templateBuilder.addFile("vite.config.ts", {
+    fromFile: path.join(resourceDir, "vite.config.ts"),
+  });
   templateBuilder.addFile(".gitignore", {
     fromFile: path.join(resourceDir, "gitignore"),
   });
@@ -45,6 +48,9 @@ async function buildTemplateReact({
   //  await runCommand("yarn", ["add", "--dev", "@storybook/cli"]);
   await runCommand("npx", ["storybook", "init"], commandOptions);
   templateBuilder.addDevDependencies(["@storybook/testing-react"]);
+  templateBuilder.addFile(".storybook/main.cjs", {
+    fromFile: path.join(resourceDir, "storybook-main.cjs"),
+  });
   // Remove stories
   await runCommand("rm", ["-rf", "src/stories"], commandOptions);
   await runCommand(

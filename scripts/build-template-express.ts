@@ -25,6 +25,7 @@ async function buildTemplateExpress({
     "@types/express",
     "@types/jest",
     "@types/supertest",
+    "@types/cors",
     "ts-node",
     "typescript",
     "jest",
