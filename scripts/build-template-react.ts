@@ -150,6 +150,10 @@ async function buildTemplateReact({
       "./*.cjs",
       "./*.ts",
     ];
+    tsConfig.compilerOptions.paths = {
+      ...tsConfig.compilerOptions.paths,
+      "@/*": ["./src/*"],
+    };
     return JSON.stringify(tsConfig, null, 2);
   });
 
