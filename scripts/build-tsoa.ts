@@ -29,13 +29,18 @@ async function buildTemplateTsoa({
     return JSON.stringify(packageJSON, null, 2);
   });
 
+  templateBuilder.addFile("tsconfig.json", {
+    fromFile: path.join(resourceDir, "tsconfig.json"),
+  });
+
   // Add tsoa
-  templateBuilder.addDependencies([
-    "tsoa",
-    "swagger-ui-express",
+  templateBuilder.addDependencies(["tsoa", "swagger-ui-express"]);
+  templateBuilder.addDevDependencies([
+    "@types/swagger-ui-express",
     "concurrently",
+    "@types/multer",
   ]);
-  templateBuilder.addDevDependencies(["@types/swagger-ui-express"]);
+
   templateBuilder.packageJSON.addScript("build", "tsoa spec-and-routes && tsc");
   templateBuilder.packageJSON.addScript("start", "node build/src/server.js");
   templateBuilder.packageJSON.addScript(
