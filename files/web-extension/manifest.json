@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/chrome-manifest",
+  "manifest_version": 3,
+  "name": "My Extension",
+  "version": "1.0.0",
+  "description": "My Extension Description",
+  "options_page": "src/options/index.html",
+  "action": {
+    "default_popup": "src/popup/index.html"
+  },
+  "permissions": [],
+  "background": {
+    "service_worker": "src/service-worker/index.ts",
+    "type": "module"
+  }
+}
