@@ -6,6 +6,7 @@ import { TemplateBuilderFnOptions } from "./types";
 import buildTemplateReact from "./build-template-react";
 import buildTemplateReactWorkshop from "./build-template-react-workshop";
 import buildTemplateExpressPrisma from "./build-template-express";
+import buildTemplateNode from "./build-template-node";
 import buildTsoa from "./build-tsoa";
 import buildTemplateWebExtension from "./build-template-web-extension";
 
@@ -36,6 +37,7 @@ async function buildTemplate(
 async function main() {
   await buildTemplate("react", buildTemplateReact);
   await buildTemplate("react-workshop", buildTemplateReactWorkshop);
+  await buildTemplate("node", buildTemplateNode);
   await buildTemplate("express-prisma", buildTemplateExpressPrisma);
   await buildTemplate("tsoa", buildTsoa);
   await buildTemplate("web-extension", buildTemplateWebExtension);
