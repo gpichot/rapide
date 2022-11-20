@@ -1,0 +1,77 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended", // Eslint recommended configuration by eslint.
+    "plugin:import/recommended", // Linting of ES2015+ import/export syntax.
+    "plugin:@typescript-eslint/recommended", // Turns on rules from TypeScript-specific plugin.
+    "prettier" // Turns off all rules that are unnecessary or might conflict with Prettier.
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "import",
+    "simple-import-sort" // Plugin for sorting imports in file.
+  ],
+  "rules": {
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error",
+    "import/no-named-as-default-member": "off",
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
+          // Packages. `react` related packages come first.
+          ["^@?\\w"],
+          // Absolute imports and other imports such as Vue-style `@/foo`.
+          // Anything that does not start with a dot.
+          ["^[^.@]"],
+          ["^@yourorg"], // FIXME
+          ["^@"],
+          ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"]
+        ]
+      }
+    ],
+    "simple-import-sort/exports": "error"
+  },
+  "env": {
+    "node": true // enable use of global node variables like `process`.
+  },
+  "parser": "@typescript-eslint/parser", // Allows Eslint to understand TypeScript syntax.
+  "parserOptions": {
+    "project": "./tsconfig.json", // Specify where to find the root tsconfig file of your project.
+    "ecmaVersion": 2021, // ECMAScript version supported in the project.
+    "sourceType": "module" // set to `module` because we ue ECMAScript modules.
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"] // use typescript-eslint parser for .ts|tsx files.
+    },
+    "import/resolver": {
+      "typescript": {
+        "projectConfig": "./tsconfig.json",
+        "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`.
+      }
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ], // Override config for same files pattern as jest `testMatch` default value
+      "extends": ["plugin:jest/recommended", "plugin:jest/style"],
+      "plugins": ["jest"],
+      "rules": {
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error"
+      },
+      "env": {
+        "jest/globals": true // enable Jest global variables.
+      }
+    }
+  ]
+}
