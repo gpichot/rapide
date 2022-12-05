@@ -58,6 +58,7 @@
   "env": {
     "es6": true, // enable ES2015 features.
     "browser": true, // enable use of global browser variables like `windows`.
+    "webextensions": true,
     "node": true // enable use of global node variables like `process`.
   },
   "parser": "@typescript-eslint/parser", // Allows Eslint to understand TypeScript syntax.

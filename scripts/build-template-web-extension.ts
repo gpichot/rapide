@@ -32,6 +32,13 @@ async function buildTemplateWebExtension({
     packageJSON.name = `rapide-vite-template-${name}`;
     return JSON.stringify(packageJSON, null, 2);
   });
+  templateBuilder.changeFile(".eslintrc.json", (content) => {
+    const eslintrc = content.replace(
+      /"node": true/,
+      '"webextensions": true,\n    "node": true'
+    );
+    return eslintrc;
+  });
 
   templateBuilder.addDependencies(["webextension-polyfill"]);
 
