@@ -1,3 +1,4 @@
+import path from "path";
 import type { StorybookConfig } from "@storybook/react-vite";
 
 const config: StorybookConfig = {
@@ -14,7 +15,7 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  viteFinal: async (config, { configType }) => {
+  viteFinal: async (config) => {
     // Add absolute imports @
     config.resolve.alias = config.resolve.alias || [];
     config.resolve.alias.push({
