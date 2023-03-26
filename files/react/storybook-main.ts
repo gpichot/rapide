@@ -1,18 +1,18 @@
-const path = require("path");
+import type { StorybookConfig } from "@storybook/react-vite";
 
-module.exports = {
-  stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
+const config: StorybookConfig = {
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
   ],
-  framework: "@storybook/react",
-  core: {
-    builder: "@storybook/builder-vite",
+  framework: {
+    name: "@storybook/react-vite",
+    options: {},
   },
-  features: {
-    storyStoreV7: true,
+  docs: {
+    autodocs: "tag",
   },
   viteFinal: async (config, { configType }) => {
     // Add absolute imports @
@@ -24,3 +24,4 @@ module.exports = {
     return config;
   },
 };
+export default config;

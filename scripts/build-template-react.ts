@@ -43,21 +43,19 @@ async function buildTemplateReact({
     fromFile: path.join(resourceDir, "globals.scss"),
   });
   await runCommand("rm", ["src/App.css"], commandOptions);
+  await runCommand("rm", ["src/assets/react.svg"], commandOptions);
 
-  // Install storybook
-  //  await runCommand("yarn", ["add", "--dev", "@storybook/cli"]);
-  await runCommand("npx", ["storybook", "init"], commandOptions);
-  templateBuilder.addDevDependencies(["@storybook/testing-react"]);
+  // npx storybook@next init
+  await runCommand("npx", ["storybook@next", "init"], commandOptions);
+  templateBuilder.addDevDependencies(["@storybook/testing-react@next"]);
   templateBuilder.addFile(".storybook/main.cjs", {
-    fromFile: path.join(resourceDir, "storybook-main.cjs"),
+    fromFile: path.join(resourceDir, "storybook-main.ts"),
+  });
+  templateBuilder.addFile("src/Introduction.mdx", {
+    content: `# Hello Storybook`,
   });
   // Remove stories
   await runCommand("rm", ["-rf", "src/stories"], commandOptions);
-  await runCommand(
-    "mv",
-    [".storybook/preview.cjs", ".storybook/preview.ts"],
-    commandOptions
-  );
 
   // Add sass
   templateBuilder.addDevDependencies(["sass", "typed-scss-modules"]);
@@ -75,21 +73,17 @@ async function buildTemplateReact({
 
   // Install jest
   templateBuilder.addDevDependencies([
-    "jest",
-    "ts-jest",
-    "@types/jest",
-    "jest-environment-jsdom",
+    "vitest",
+    "@vitest/ui",
+    "jsdom",
     "identity-obj-proxy",
     "@testing-library/react",
     "@testing-library/react-hooks",
     "@testing-library/user-event",
     "@testing-library/jest-dom",
   ]);
-  templateBuilder.addFile("jest.config.cjs", {
-    fromFile: path.join(resourceDir, "jest.config.js"),
-  });
-  templateBuilder.addFile("jest.setup.ts", {
-    fromFile: path.join(resourceDir, "jest.setup.ts"),
+  templateBuilder.addFile("setupTests.ts", {
+    fromFile: path.join(resourceDir, "setupTests.ts"),
   });
   templateBuilder.addFile("__mocks__/styleMock.ts", {
     content: "export default {};",
@@ -100,7 +94,7 @@ async function buildTemplateReact({
   templateBuilder.addFile("src/App.test.tsx", {
     fromFile: path.join(resourceDir, "App.test.tsx"),
   });
-  templateBuilder.packageJSON.addScript("test", "jest");
+  templateBuilder.packageJSON.addScript("test", "vitest");
 
   // Install eslint
   const eslintPlugins = [
@@ -111,7 +105,7 @@ async function buildTemplateReact({
     "eslint-plugin-react-hooks",
     "eslint-plugin-import",
     "eslint-plugin-jsx-a11y",
-    "eslint-plugin-jest",
+    "eslint-plugin-vitest",
     "eslint-plugin-jest-dom",
     "eslint-plugin-testing-library",
     "eslint-plugin-simple-import-sort",
@@ -128,7 +122,7 @@ async function buildTemplateReact({
 
   // Auto Formatting & Fix
   templateBuilder.addDevDependencies(["husky", "lint-staged"]);
-  templateBuilder.packageJSON.addScript("prepare", "husky install");
+  templateBuilder.packageJSON.addScript("husky:install", "husky install");
   templateBuilder.packageJSON.addScript("format", "prettier --write src");
   templateBuilder.packageJSON.addScript(
     "lint",
@@ -184,7 +178,7 @@ async function buildTemplateReact({
   await runCommand("yarn", ["format"], commandOptions);
   await runCommand("yarn", ["eslint", "--fix", "src"], commandOptions);
   await runCommand("yarn", ["build:scss:types"], commandOptions);
-  await runCommand("yarn", ["test"], commandOptions);
+  await runCommand("yarn", ["test", "--", "--run"], commandOptions);
   await runCommand("yarn", ["build-storybook"], commandOptions);
   await runCommand("yarn", ["build"], commandOptions);
 }

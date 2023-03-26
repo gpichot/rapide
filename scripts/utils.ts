@@ -121,6 +121,26 @@ export class TemplateBuilder {
     this.packageJSON.print();
   }
 
+  /**
+   * Add a file to the template
+   *
+   * @param filepath Path to the file
+   * @param content Content of the file
+   *
+   * @example
+   * ```ts
+   * builder.addFile("src/index.ts", {
+   *   content: `console.log("Hello world")`,
+   * );
+   * ```
+   *
+   * @example
+   * ```ts
+   * builder.addFile("src/index.ts", {
+   *   fromFile: path.join(__dirname, "index.ts"),
+   * });
+   * ```
+   */
   addFile(filepath: string, content: FileContent) {
     this.files.set(filepath, content);
   }
