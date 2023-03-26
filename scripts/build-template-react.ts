@@ -43,7 +43,6 @@ async function buildTemplateReact({
     fromFile: path.join(resourceDir, "globals.scss"),
   });
   await runCommand("rm", ["src/App.css"], commandOptions);
-  await runCommand("rm", ["src/assets/react.svg"], commandOptions);
 
   // npx storybook@next init
   await runCommand("npx", ["storybook@next", "init"], commandOptions);
