@@ -46,7 +46,7 @@ async function buildTemplateReact({
 
   // npx storybook@next init
   await runCommand("npx", ["storybook@next", "init"], commandOptions);
-  templateBuilder.addDevDependencies(["@storybook/testing-react@next"]);
+  templateBuilder.addDevDependencies(["@storybook/testing-react@next", "@storybook/jest"]);
   templateBuilder.addFile(".storybook/main.ts", {
     fromFile: path.join(resourceDir, "storybook-main.ts"),
   });
