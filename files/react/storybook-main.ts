@@ -17,11 +17,8 @@ const config: StorybookConfig = {
   },
   viteFinal: async (config) => {
     // Add absolute imports @
-    config.resolve.alias = config.resolve.alias || [];
-    config.resolve.alias.push({
-      find: "@",
-      replacement: path.resolve(__dirname, "../src"),
-    });
+    config.resolve.alias = config.resolve.alias || {};
+    config.resolve.alias["@"] = path.resolve(__dirname, "../src");
     return config;
   },
 };
