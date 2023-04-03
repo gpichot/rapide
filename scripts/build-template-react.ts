@@ -20,6 +20,7 @@ async function buildTemplateReact({
     ["create", "vite", path.basename(buildDir), "--template", "react-ts"],
     { cwd: path.dirname(buildDir) }
   );
+  await runCommand("rm", ["-rf", "src/index.css"], commandOptions);
   await runCommand("yarn", ["install"], commandOptions);
 
   templateBuilder.changeFile("package.json", (content) => {
@@ -32,6 +33,9 @@ async function buildTemplateReact({
   });
   templateBuilder.addFile(".gitignore", {
     fromFile: path.join(resourceDir, "gitignore"),
+  });
+  templateBuilder.addFile("src/main.tsx", {
+    fromFile: path.join(resourceDir, "main.tsx"),
   });
   templateBuilder.addFile("src/App.tsx", {
     fromFile: path.join(resourceDir, "App.tsx"),
