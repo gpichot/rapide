@@ -1,10 +1,11 @@
-import { setProjectAnnotations, cleanup } from "@storybook/testing-react";
+import { setProjectAnnotations } from "@storybook/testing-react";
 
 /* eslint-disable @typescript-eslint/no-namespace */
 import matchers, {
-  TestingLibraryMatchers,
+  TestingLibraryMatchers
 } from "@testing-library/jest-dom/matchers";
 import { expect, afterEach } from "vitest";
+import { cleanup } from '@testing-library/react';
 
 // Storybook's preview file location
 import globalStorybookConfig from "./.storybook/preview";
@@ -18,7 +19,7 @@ declare global {
   }
 }
 
-afterEach(cleanupt;
+afterEach(cleanup);
 
 setProjectAnnotations(globalStorybookConfig);
 
