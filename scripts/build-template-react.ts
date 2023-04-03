@@ -53,7 +53,7 @@ async function buildTemplateReact({
   templateBuilder.addDevDependencies([
     "@storybook/testing-react@next",
     "@storybook/jest",
-    "@storybook/addon-a11y@next"
+    "@storybook/addon-a11y@next",
   ]);
   templateBuilder.addFile(".storybook/main.ts", {
     fromFile: path.join(resourceDir, "storybook-main.ts"),
@@ -65,12 +65,11 @@ async function buildTemplateReact({
   await runCommand("rm", ["-rf", "src/stories"], commandOptions);
 
   // Add sass
-  templateBuilder.addDevDependencies(["sass", "typed-scss-modules"]);
+  templateBuilder.addDevDependencies(["sass", "vite-plugin-sass-dts"]);
+  templateBuilder.addFile('src/styles/_index.scss', {
+    content: '$breakpoint: 300px;',
+  })
   templateBuilder.addDependencies(["classnames"]);
-  templateBuilder.packageJSON.addScript(
-    "build:scss:types",
-    "typed-scss-modules src"
-  );
 
   // Install prettier
   templateBuilder.addDevDependencies(["prettier", "eslint-config-prettier"]);
@@ -184,7 +183,6 @@ async function buildTemplateReact({
   await runCommand("yarn", ["sort-package-json"], commandOptions);
   await runCommand("yarn", ["format"], commandOptions);
   await runCommand("yarn", ["eslint", "--fix", "src"], commandOptions);
-  await runCommand("yarn", ["build:scss:types"], commandOptions);
   await runCommand("yarn", ["test", "--", "--run"], commandOptions);
   await runCommand("yarn", ["build-storybook"], commandOptions);
   await runCommand("yarn", ["build"], commandOptions);
