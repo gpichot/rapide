@@ -86,12 +86,9 @@ async function buildTemplateWebExtension({
   // Remove non necessary files
   await runCommand("rm", ["src/assets/react.svg"], commandOptions);
   await runCommand("rm", ["src/App.module.scss"], commandOptions);
-  await runCommand("rm", ["src/App.module.scss.d.ts"], commandOptions);
   await runCommand("rm", ["src/App.test.tsx"], commandOptions);
   await runCommand("rm", ["src/App.tsx"], commandOptions);
   await runCommand("rm", ["src/globals.scss"], commandOptions);
-  await runCommand("rm", ["src/globals.scss.d.ts"], commandOptions);
-  await runCommand("rm", ["src/index.css"], commandOptions);
   await runCommand("rm", ["src/main.tsx"], commandOptions);
 
   await templateBuilder.build(commandOptions);
