@@ -66,9 +66,9 @@ async function buildTemplateReact({
 
   // Add sass
   templateBuilder.addDevDependencies(["sass", "vite-plugin-sass-dts"]);
-  templateBuilder.addFile('src/styles/_index.scss', {
-    content: '$breakpoint: 300px;',
-  })
+  templateBuilder.addFile("src/styles/_index.scss", {
+    content: "$breakpoint: 300px;",
+  });
   templateBuilder.addDependencies(["classnames"]);
 
   // Install prettier
@@ -84,9 +84,9 @@ async function buildTemplateReact({
     "jsdom",
     "identity-obj-proxy",
     "@testing-library/react",
-    "@testing-library/react-hooks",
     "@testing-library/user-event",
     "@testing-library/jest-dom",
+    "@types/testing-library__jest-dom",
   ]);
   templateBuilder.addFile("setupTests.ts", {
     fromFile: path.join(resourceDir, "setupTests.ts"),
