@@ -49,7 +49,7 @@ async function buildTemplateReact({
   await runCommand("rm", ["src/App.css"], commandOptions);
 
   // npx storybook@next init
-  await runCommand("npx", ["storybook@next", "init"], commandOptions);
+  await runCommand("npx", ["--yes", "storybook@next", "init"], commandOptions);
   templateBuilder.addDevDependencies([
     "@storybook/testing-react@next",
     "@storybook/jest",
