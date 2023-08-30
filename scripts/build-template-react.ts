@@ -22,8 +22,8 @@ async function buildTemplateReact({
   );
   await runCommand("rm", ["-rf", "src/index.css"], commandOptions);
   await runCommand("yarn", ["install"], commandOptions);
-  await runCommand("rm", ".eslintrc.cjs", commandOptions);
-  await runCommand("rm", "README.md", commandOptions);
+  await runCommand("rm", [".eslintrc.cjs"], commandOptions);
+  await runCommand("rm", ["README.md"], commandOptions);
 
   templateBuilder.changeFile("package.json", (content) => {
     const packageJSON = JSON.parse(content);
