@@ -140,7 +140,9 @@ async function buildTemplateReact({
     "package.json": ["sort-package-json"],
   });
   templateBuilder.changeFile("tsconfig.json", (content) => {
-    const tsConfig = JSON.parse(content);
+    // content without json comments
+    const c = content.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, "");
+    const tsConfig = JSON.parse(c);
     tsConfig.compilerOptions.esModuleInterop = true;
     tsConfig.compilerOptions.allowJs = true;
     tsConfig.include = [
