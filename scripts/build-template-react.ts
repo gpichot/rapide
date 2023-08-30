@@ -160,6 +160,14 @@ async function buildTemplateReact({
     };
     return JSON.stringify(tsConfig, null, 2);
   });
+  templateBuilder.changeFile("package.json", (content) => {
+    const packageJSON = JSON.parse(content);
+    packageJSON.resolutions = {
+      "strip-ansi": "^6.0.1"
+    }
+    return JSON.stringify(packageJSON, null, 2);
+  });
+
 
   // Auto Committing
   templateBuilder.addDevDependencies([
