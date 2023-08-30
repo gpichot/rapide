@@ -180,7 +180,7 @@ export class TemplateBuilder {
     if (devDependencies.length) {
       await runCommand(
         "pnpm",
-        ["add", "--ignore-scripts", "--dev", ...devDependencies],
+        ["add", "--ignore-scripts", "--save-dev", ...devDependencies],
         { cwd }
       );
     }
