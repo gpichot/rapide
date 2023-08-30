@@ -31,7 +31,7 @@ jobs:
               - 'files/**'
       - name: Build template
         if: steps.filter.outputs.scripts == 'true'
-        run: pnpm && pnpm run build:templates
+        run: pnpm install && pnpm run build:templates
       - name: Create Pull Request
         if: steps.filter.outputs.scripts == 'true'
         uses: peter-evans/create-pull-request@v4
