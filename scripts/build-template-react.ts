@@ -88,7 +88,6 @@ async function buildTemplateReact({
     "@testing-library/react",
     "@testing-library/user-event",
     "@testing-library/jest-dom",
-    "@types/testing-library__jest-dom",
   ]);
   templateBuilder.addFile("setupTests.ts", {
     fromFile: path.join(resourceDir, "setupTests.ts"),
@@ -163,11 +162,10 @@ async function buildTemplateReact({
   templateBuilder.changeFile("package.json", (content) => {
     const packageJSON = JSON.parse(content);
     packageJSON.resolutions = {
-      "strip-ansi": "^6.0.1"
-    }
+      "strip-ansi": "^6.0.1",
+    };
     return JSON.stringify(packageJSON, null, 2);
   });
-
 
   // Auto Committing
   templateBuilder.addDevDependencies([
