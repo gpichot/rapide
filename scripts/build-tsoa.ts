@@ -93,9 +93,9 @@ async function buildTemplateTsoa({
 
   await templateBuilder.build(commandOptions);
 
-  await runCommand("yarn", ["sort-package-json"], commandOptions);
-  await runCommand("yarn", ["format"], commandOptions);
-  // await runCommand("yarn", ["eslint", "--fix", "src"], commandOptions);
+  await runCommand("pnpm", ["sort-package-json"], commandOptions);
+  await runCommand("pnpm", ["format"], commandOptions);
+  // await runCommand("pnpm", ["eslint", "--fix", "src"], commandOptions);
 }
 
 export default buildTemplateTsoa;

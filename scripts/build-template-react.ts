@@ -16,12 +16,12 @@ async function buildTemplateReact({
 
   // Create the project
   await runCommand(
-    "yarn",
+    "pnpm",
     ["create", "vite", path.basename(buildDir), "--template", "react-ts"],
     { cwd: path.dirname(buildDir) }
   );
   await runCommand("rm", ["-rf", "src/index.css"], commandOptions);
-  await runCommand("yarn", ["install"], commandOptions);
+  await runCommand("pnpm", ["install"], commandOptions);
   await runCommand("rm", [".eslintrc.cjs"], commandOptions);
   await runCommand("rm", ["README.md"], commandOptions);
 
@@ -192,12 +192,12 @@ async function buildTemplateReact({
     commandOptions
   );
 
-  await runCommand("yarn", ["sort-package-json"], commandOptions);
-  await runCommand("yarn", ["format"], commandOptions);
-  await runCommand("yarn", ["eslint", "--fix", "src"], commandOptions);
-  await runCommand("yarn", ["test", "--", "--run"], commandOptions);
-  await runCommand("yarn", ["build-storybook"], commandOptions);
-  await runCommand("yarn", ["build"], commandOptions);
+  await runCommand("pnpm", ["sort-package-json"], commandOptions);
+  await runCommand("pnpm", ["format"], commandOptions);
+  await runCommand("pnpm", ["eslint", "--fix", "src"], commandOptions);
+  await runCommand("pnpm", ["test", "--", "--run"], commandOptions);
+  await runCommand("pnpm", ["build-storybook"], commandOptions);
+  await runCommand("pnpm", ["build"], commandOptions);
 }
 
 export default buildTemplateReact;
