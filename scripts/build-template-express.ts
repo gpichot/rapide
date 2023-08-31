@@ -17,7 +17,7 @@ async function buildTemplateExpress({
 
   // Create the project
   await fs.mkdir(buildDir);
-  await runCommand("pnpm", ["init", "-y"], commandOptions);
+  await runCommand("pnpm", ["init"], commandOptions);
 
   // Add dependencies
   templateBuilder.packageJSON.addDevDependencies([
