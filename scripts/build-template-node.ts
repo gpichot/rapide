@@ -16,7 +16,7 @@ async function buildTemplateNode({
 
   // Create the project
   await fs.mkdir(buildDir);
-  await runCommand("yarn", ["init", "-y"], commandOptions);
+  await runCommand("pnpm", ["init"], commandOptions);
 
   // Add dependencies
   templateBuilder.packageJSON.addDevDependencies([
@@ -89,9 +89,9 @@ async function buildTemplateNode({
   await templateBuilder.build(commandOptions);
 
   // Tests
-  await runCommand("yarn", ["sort-package-json"], commandOptions);
-  await runCommand("yarn", ["format"], commandOptions);
-  await runCommand("yarn", ["eslint", "--fix", "src"], commandOptions);
+  await runCommand("pnpm", ["sort-package-json"], commandOptions);
+  await runCommand("pnpm", ["format"], commandOptions);
+  await runCommand("pnpm", ["eslint", "--fix", "src"], commandOptions);
 }
 
 export default buildTemplateNode;

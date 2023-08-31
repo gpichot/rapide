@@ -16,12 +16,12 @@ async function buildTemplateReact({
 
   // Create the project
   await runCommand(
-    "yarn",
+    "pnpm",
     ["create", "vite", path.basename(buildDir), "--template", "react-ts"],
     { cwd: path.dirname(buildDir) }
   );
   await runCommand("rm", ["-rf", "src/index.css"], commandOptions);
-  await runCommand("yarn", ["install"], commandOptions);
+  await runCommand("pnpm", ["install"], commandOptions);
   await runCommand("rm", [".eslintrc.cjs"], commandOptions);
   await runCommand("rm", ["README.md"], commandOptions);
 
@@ -88,7 +88,6 @@ async function buildTemplateReact({
     "@testing-library/react",
     "@testing-library/user-event",
     "@testing-library/jest-dom",
-    "@types/testing-library__jest-dom",
   ]);
   templateBuilder.addFile("setupTests.ts", {
     fromFile: path.join(resourceDir, "setupTests.ts"),
@@ -163,11 +162,10 @@ async function buildTemplateReact({
   templateBuilder.changeFile("package.json", (content) => {
     const packageJSON = JSON.parse(content);
     packageJSON.resolutions = {
-      "strip-ansi": "^6.0.1"
-    }
+      "strip-ansi": "^6.0.1",
+    };
     return JSON.stringify(packageJSON, null, 2);
   });
-
 
   // Auto Committing
   templateBuilder.addDevDependencies([
@@ -192,12 +190,12 @@ async function buildTemplateReact({
     commandOptions
   );
 
-  await runCommand("yarn", ["sort-package-json"], commandOptions);
-  await runCommand("yarn", ["format"], commandOptions);
-  await runCommand("yarn", ["eslint", "--fix", "src"], commandOptions);
-  await runCommand("yarn", ["test", "--", "--run"], commandOptions);
-  await runCommand("yarn", ["build-storybook"], commandOptions);
-  await runCommand("yarn", ["build"], commandOptions);
+  await runCommand("pnpm", ["sort-package-json"], commandOptions);
+  await runCommand("pnpm", ["format"], commandOptions);
+  await runCommand("pnpm", ["eslint", "--fix", "src"], commandOptions);
+  await runCommand("pnpm", ["test", "--", "--run"], commandOptions);
+  await runCommand("pnpm", ["build-storybook"], commandOptions);
+  await runCommand("pnpm", ["build"], commandOptions);
 }
 
 export default buildTemplateReact;
