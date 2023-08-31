@@ -18,7 +18,7 @@ app.use(
   cors({
     // FIXME
     origin: "*",
-  })
+  }),
 );
 
 const prisma = new PrismaClient();
@@ -26,13 +26,13 @@ const prisma = new PrismaClient();
 app.use(
   urlencoded({
     extended: true,
-  })
+  }),
 );
 app.use(json());
 
 app.use("/docs", swaggerUi.serve, async (_req: ExRequest, res: ExResponse) => {
   return res.send(
-    swaggerUi.generateHTML(await import("../build/swagger.json"), {})
+    swaggerUi.generateHTML(await import("../build/swagger.json"), {}),
   );
 });
 
@@ -46,7 +46,7 @@ app.use(function errorHandler(
   err: unknown,
   req: ExRequest,
   res: ExResponse,
-  next: NextFunction
+  next: NextFunction,
 ): ExResponse | void {
   if (err instanceof ValidateError) {
     console.warn(`Caught Validation Error for ${req.path}:`, err.fields);
